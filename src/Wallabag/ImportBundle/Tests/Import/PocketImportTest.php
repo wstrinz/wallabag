@@ -26,8 +26,9 @@ class PocketImportTest extends \PHPUnit_Framework_TestCase
     protected $em;
     protected $contentProxy;
     protected $logHandler;
+    protected $producer;
 
-    private function getPocketImport($consumerKey = 'ConsumerKey')
+    private function getPocketImport($consumerKey = 'ConsumerKey', $rabbitMQ = false)
     {
         $this->user = new User();
 
@@ -55,11 +56,17 @@ class PocketImportTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->producer = $this->getMockBuilder('OldSound\RabbitMqBundle\RabbitMq\Producer')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $pocket = new PocketImportMock(
             $this->tokenStorage,
             $this->em,
             $this->contentProxy,
-            $consumerKey
+            $consumerKey,
+            $rabbitMQ,
+            $this->producer
         );
 
         $this->logHandler = new TestHandler();
