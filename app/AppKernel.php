@@ -34,6 +34,7 @@ class AppKernel extends Kernel
             new Wallabag\ImportBundle\WallabagImportBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Craue\ConfigBundle\CraueConfigBundle(),
+            new Wallabag\CommentBundle\WallabagCommentBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
